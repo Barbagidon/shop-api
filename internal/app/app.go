@@ -1,14 +1,20 @@
 package app
 
-import "fmt"
+import (
+	"github.com/Barbagidon/shop-api/internal/httpserver"
+)
 
 type App struct {
+	server *httpserver.Server
 }
 
 func New() *App {
-	return &App{}
+	server := httpserver.New()
+	return &App{
+		server: server,
+	}
 }
 
 func (a *App) Run() {
-	fmt.Println("Application started")
+	a.Run()
 }
