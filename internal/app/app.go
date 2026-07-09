@@ -15,6 +15,6 @@ func New() *App {
 	}
 }
 
-func (a *App) Run() {
-	a.Run()
+func (a *App) Run() error {
+	return a.server.Start()
 }

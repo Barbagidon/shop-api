@@ -1,9 +1,15 @@
 package main
 
-import "github.com/Barbagidon/shop-api/internal/app"
+import (
+	"log"
+
+	"github.com/Barbagidon/shop-api/internal/app"
+)
 
 func main() {
 	app := app.New()
 
-	app.Run()
+	if err := app.Run(); err != nil {
+		log.Fatal(err)
+	}
 }
