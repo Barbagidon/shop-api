@@ -12,19 +12,29 @@ type Server struct {
 
 func New() *Server {
 
-	httpServer := &http.Server{
-		Addr: ":8080",
-	}
-
 	mux := http.NewServeMux()
 
-	return &Server{
-		httpServer: httpServer,
+	httpServer := &http.Server{
+		Addr:    ":8080",
+		Handler: mux,
 	}
+
+	server := &Server{
+		httpServer: httpServer,
+		mux:        mux,
+	}
+
+	server.registerRoutes()
+
+	return server
 }
 
 func (s *Server) Start() error {
-	fmt.Println("HTTP server started on :8080")
+	fmt.Printf("HTTP server started on %s\n", s.httpServer.Addr)
 
 	return s.httpServer.ListenAndServe()
+}
+
+func (s *Server) registerRoutes() {
+	s.mux.HandleFunc("GET /health", s.health)
 }
