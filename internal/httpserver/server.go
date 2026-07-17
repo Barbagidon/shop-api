@@ -3,14 +3,17 @@ package httpserver
 import (
 	"fmt"
 	"net/http"
+
+	"github.com/Barbagidon/shop-api/internal/service"
 )
 
 type Server struct {
-	httpServer *http.Server
-	mux        *http.ServeMux
+	httpServer     *http.Server
+	mux            *http.ServeMux
+	productService *service.ProductService
 }
 
-func New() *Server {
+func New(s *service.ProductService) *Server {
 
 	mux := http.NewServeMux()
 
@@ -20,8 +23,9 @@ func New() *Server {
 	}
 
 	server := &Server{
-		httpServer: httpServer,
-		mux:        mux,
+		httpServer:     httpServer,
+		mux:            mux,
+		productService: s,
 	}
 
 	server.registerRoutes()
