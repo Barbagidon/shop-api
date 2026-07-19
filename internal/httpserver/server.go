@@ -41,4 +41,5 @@ func (s *Server) Start() error {
 
 func (s *Server) registerRoutes() {
 	s.mux.HandleFunc("GET /health", s.health)
+	s.mux.HandleFunc("GET /products", s.getProducts)
 }
