@@ -39,5 +39,5 @@ func (r *ProductRepository) GetByID(id int64) (domain.Product, error) {
 		}
 	}
 
-	return domain.Product{}, errors.New("product not found")
+	return domain.Product{}, errors.New(domain.ErrProductNotFound.Error())
 }
