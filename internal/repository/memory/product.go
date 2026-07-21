@@ -1,6 +1,10 @@
 package memory
 
-import "github.com/Barbagidon/shop-api/internal/domain"
+import (
+	"errors"
+
+	"github.com/Barbagidon/shop-api/internal/domain"
+)
 
 type ProductRepository struct {
 	products []domain.Product
@@ -26,4 +30,14 @@ func NewProductRepository() *ProductRepository {
 
 func (r *ProductRepository) GetAll() ([]domain.Product, error) {
 	return r.products, nil
+}
+
+func (r *ProductRepository) GetByID(id int64) (domain.Product, error) {
+	for _, value := range r.products {
+		if value.ID == id {
+			return value, nil
+		}
+	}
+
+	return domain.Product{}, errors.New("product not found")
 }

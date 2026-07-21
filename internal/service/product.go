@@ -4,6 +4,7 @@ import "github.com/Barbagidon/shop-api/internal/domain"
 
 type ProductRepository interface {
 	GetAll() ([]domain.Product, error)
+	GetByID(id int64) (domain.Product, error)
 }
 
 type ProductService struct {
@@ -16,4 +17,8 @@ func NewProductService(r ProductRepository) *ProductService {
 
 func (s *ProductService) GetProducts() ([]domain.Product, error) {
 	return s.repo.GetAll()
+}
+
+func (s *ProductService) GetProductByID(id int64) (domain.Product, error) {
+	return s.repo.GetByID(id)
 }
