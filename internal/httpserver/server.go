@@ -43,5 +43,6 @@ func (s *Server) registerRoutes() {
 	s.mux.HandleFunc("GET /health", s.health)
 	s.mux.HandleFunc("GET /products", s.getProducts)
 	s.mux.HandleFunc("GET /products/{id}", s.getProductByID)
+	s.mux.HandleFunc("POST /products", s.createProduct)
 
 }

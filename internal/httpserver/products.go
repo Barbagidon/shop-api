@@ -2,8 +2,11 @@ package httpserver
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 	"strconv"
+
+	"github.com/Barbagidon/shop-api/internal/domain"
 )
 
 func (s *Server) getProducts(w http.ResponseWriter, r *http.Request) {
@@ -37,7 +40,12 @@ func (s *Server) getProductByID(w http.ResponseWriter, r *http.Request) {
 	product, err := s.productService.GetProductByID(id)
 
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusNotFound)
+		if errors.Is(err, domain.ErrProductNotFound) {
+			http.Error(w, err.Error(), http.StatusNotFound)
+			return
+		}
+
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
@@ -48,4 +56,8 @@ func (s *Server) getProductByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+}
+
+func (s *Server) createProduct(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusCreated)
 }

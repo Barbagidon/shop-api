@@ -1,8 +1,6 @@
 package memory
 
 import (
-	"errors"
-
 	"github.com/Barbagidon/shop-api/internal/domain"
 )
 
@@ -39,5 +37,5 @@ func (r *ProductRepository) GetByID(id int64) (domain.Product, error) {
 		}
 	}
 
-	return domain.Product{}, errors.New(domain.ErrProductNotFound.Error())
+	return domain.Product{}, domain.ErrProductNotFound
 }
